@@ -15,8 +15,7 @@ class _LoginState extends State<Login> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  bool isValidAccount = false;
-
+  bool _isVisible = false;
   bool isValidDetails() {
     if(userNameController.text.isEmpty) {
       return false;
@@ -46,20 +45,45 @@ class _LoginState extends State<Login> {
           const SizedBox(height: 50,),
           TextField(
             controller: userNameController,
-            decoration: const InputDecoration(
+            obscureText: false,
+            decoration: InputDecoration(
               hintText: 'Enter your name',
               labelText: 'Name',
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.blue)
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.blue)
+              ),
             ),
           ),
           const SizedBox(height: 30,),
           TextField(
             controller: passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
+            obscureText: !_isVisible,
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    _isVisible = !_isVisible;
+                  });
+                },
+                icon: _isVisible? const Icon(Icons.visibility, color: Colors.black87,): const Icon(Icons.visibility_off, color: Colors.grey,),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.blue)
+              ),
               hintText: 'Enter your password',
               labelText: 'Password',
-              border: OutlineInputBorder(),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.blue)
+              )
             ),
           ),
           const SizedBox(height: 50,),
